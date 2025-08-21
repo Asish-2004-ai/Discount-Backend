@@ -15,15 +15,15 @@ A pluggable business rules engine for calculating discounts built with Node.js, 
 
 ```
 src/
-├── index.js              # Express app setup and server
+├── index.js             
 ├── routes/
-│   └── discount.js       # API endpoints for discount calculations
+│   └── discount.js       
 ├── engine/
-│   └── RuleEngine.js     # Core rule evaluation logic
+│   └── RuleEngine.js    
 ├── rules/
-│   └── rules.js          # Business rules definitions
+│   └── rules.js          
 └── utils/
-    └── money.js          # Currency utility functions
+    └── money.js          
 ```
 
 ## API Endpoints
@@ -135,58 +135,3 @@ Run the test suite:
 ```bash
 npm test
 ```
-
-The tests cover:
-- Rule priority evaluation
-- Individual rule functionality
-- Edge cases (no applicable rules)
-- Input validation
-- Currency rounding accuracy
-
-## Adding New Rules
-
-To add a new discount rule, modify `src/rules/rules.js`:
-
-```javascript
-const RULES = [
-  // ... existing rules ...
-  {
-    name: 'YOUR_NEW_RULE',
-    priority: 4, // Lower number = higher priority
-    isApplicable: (order) => {
-      // Return true if rule should apply
-      return order.someCondition === true;
-    },
-    computeDiscount: (order) => {
-      // Calculate and return discount amount
-      return roundCurrency(order.orderTotal * 0.15);
-    },
-  },
-];
-```
-
-## Input Validation
-
-The API validates all inputs using Joi schemas:
-- `customerType`: Must be one of "NEW", "REGULAR", "PREMIUM"
-- `items`: Array of items with productId, category, and price
-- `orderTotal`: Non-negative number
-- `dayOfWeek`: Must be a valid day name
-
-The system also recomputes the order total from individual item prices to prevent client tampering.
-
-## Currency Handling
-
-All monetary calculations use the `roundCurrency` utility function to ensure proper rounding to 2 decimal places, avoiding floating-point precision issues.
-
-## Dependencies
-
-- **express**: Web framework
-- **joi**: Input validation
-- **jest**: Testing framework
-- **supertest**: HTTP testing
-- **nodemon**: Development server (dev dependency)
-
-## License
-
-[Add your license information here]
